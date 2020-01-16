@@ -9,3 +9,11 @@ export const GetRoad = (id) => {
 export const GetDetection = (img) => {
     return axios.get('http://192.168.1.124:9000/detect/' + img);
 }
+
+export const GetUnique = (assets) => {
+    return axios.post('http://192.168.1.124:9000/unique', assets, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
