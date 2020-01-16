@@ -5,3 +5,7 @@ const url = 'https://192.168.1.155/tsdm-dvldata/rest/services/getcurrentyearDvld
 export const GetRoad = (id) => {
     return axios.get(url + '/' + id)
 }
+
+export const GetDetection = (img) => {
+    return axios.get('http://192.168.1.124:9000/detect/' + img);
+}

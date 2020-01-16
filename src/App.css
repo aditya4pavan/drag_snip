@@ -1,5 +1,9 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap-reboot.css';
 @import '../node_modules/bootstrap/dist/css/bootstrap.css';
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap');
+body {
+  font-family: 'Quicksand', sans-serif;
+}
 
 .App {
   text-align: center;
@@ -24,11 +28,11 @@
   color: #09d3ac;
 }
 
-.No-Drag{
-  user-drag: none; 
+.No-Drag {
+  user-drag: none;
   user-select: none;
-  -moz-user-select: none; 
+  -moz-user-select: none;
   -webkit-user-drag: none;
   -webkit-user-select: none;
-  -ms-user-select: none;  
+  -ms-user-select: none;
 }
