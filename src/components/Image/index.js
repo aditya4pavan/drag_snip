@@ -11,7 +11,7 @@ export default function ImageView({ road = [] }) {
     if (road.length) {
         let image = road.find(e => e.milepoint === milepoint);
         if (image)
-            src = 'http://192.168.1.149/testfile/' + image.frontCenterImageLink
+            src = 'http://development.delasoft.com:5000/api/image/' + image.frontCenterImageLink.split('/').join('+')
     }
 
     const getAssets = () => {

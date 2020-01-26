@@ -3,7 +3,7 @@ import axios from 'axios';
 const url = 'https://192.168.1.155/tsdm-dvldata/rest/services/getcurrentyearDvldataset'
 
 export const GetRoad = (id) => {
-    return axios.get(url + '/' + id)
+    return axios.get('http://development.delasoft.com:5000/api/road/' + id)
 }
 
 export const GetDetection = (img) => {
