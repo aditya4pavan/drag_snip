@@ -7,11 +7,15 @@ export const GetRoad = (id) => {
 }
 
 export const GetDetection = (img) => {
-    return axios.get('http://192.168.1.124:9000/detect/' + img);
+    return axios.post('http://development.delasoft.com:5000/api/detect', { url: img, count: 6 }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 }
 
 export const GetUnique = (assets) => {
-    return axios.post('http://192.168.1.124:9000/unique', assets, {
+    return axios.post('http://development.delasoft.com:5000/api/unique', assets, {
         headers: {
             'Content-Type': 'application/json'
         }

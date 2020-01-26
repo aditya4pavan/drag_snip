@@ -29,7 +29,7 @@ export default function Download({ road = [] }) {
         }
         if (sample.length > 0) {
             let e = sample[0]
-            let img = sample[0].frontCenterImageLink ? sample[0].frontCenterImageLink.split('/').join('+') : 'Fail'
+            let img = sample[0].frontCenterImageLink //? sample[0].frontCenterImageLink.split('/').join('+') : 'Fail'
             GetDetection(img).then(result => {
                 setMile(e.milepoint)
                 try {
