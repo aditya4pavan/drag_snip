@@ -73,7 +73,7 @@ export default function Settings() {
             pickr.on('save', (c, instance) => {
                 console.log(c)
                 pickr.hide()
-                setColor(c.toHEXA())
+                dispatch(setColor(c.toHEXA().toString()))
             })
         }
     }, [open, color])

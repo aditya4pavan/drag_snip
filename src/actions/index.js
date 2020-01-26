@@ -41,6 +41,7 @@ export const setArea = (area) => dispatch => {
 }
 
 export const setColor = (color) => dispatch => {
+    console.log(color)
     dispatch({
         type: SET_COLOR,
         color

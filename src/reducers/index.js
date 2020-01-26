@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
         case SET_AREA:
             return { ...state, area: action.area, detections: getDetections(state.results, state.confidence, action.area, state.count) }
         case SET_COLOR:
-            return { ...state, color: action.color, detections: getDetections(state.results, state.confidence, action.area, state.count) }
+            return { ...state, color: action.color }
         default: {
             return { ...state };
         }

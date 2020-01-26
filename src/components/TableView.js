@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MUIDataTable from "mui-datatables";
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -18,6 +18,7 @@ export default function TableView() {
     const dispatch = useDispatch();
     const [asset, setAsset] = useState(null)
 
+    console.log(red, det)
 
     const columns = [
         'Sign Type', 'Mile Point', 'No. of Instances', 'Information', 'Possible Obstruction', '', ''
@@ -69,9 +70,10 @@ export default function TableView() {
             let min = Math.min.apply(null, miles);
             let max = Math.max.apply(null, miles);
             let notBlocked = true;
-            while (min <= max) {
+            while (min < max) {
                 min += 0.01
                 min = roundBy(min, 2)
+                console.log(min)
                 notBlocked = notBlocked && miles.includes(min)
             }
             return !notBlocked
@@ -80,7 +82,7 @@ export default function TableView() {
     }
 
     const data = output.map((e, i) => {
-        return [e.label, e.mile, e.frequency, e.label === 'stop' ? findBestColor(e.details) : '', possibleBlockage(e.details) ? 'Yes' : 'No',
+        return [e.label, e.mile, e.details.length, e.label === 'stop' ? findBestColor(e.details) : '', possibleBlockage(e.details) ? 'Yes' : 'No',
         <Button onClick={() => dispatch(setMilePoint(parseFloat(e.mile)))}>View</Button>, <Button onClick={() => setAsset(i)}>Details</Button>]
     })
 
