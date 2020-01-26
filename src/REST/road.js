@@ -1,13 +1,15 @@
 import axios from 'axios';
 
-const url = 'https://192.168.1.155/tsdm-dvldata/rest/services/getcurrentyearDvldataset'
+const request = axios.create({
+    baseURL: 'http://development.delasoft.com:5000/api/'
+})
 
 export const GetRoad = (id) => {
-    return axios.get('http://development.delasoft.com:5000/api/road/' + id)
+    return request.get('road/' + id)
 }
 
 export const GetDetection = (img) => {
-    return axios.post('http://development.delasoft.com:5000/api/detect', { url: img, count: 6 }, {
+    return request.post('detect', { url: img, count: 6 }, {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -15,7 +17,7 @@ export const GetDetection = (img) => {
 }
 
 export const GetUnique = (assets) => {
-    return axios.post('http://development.delasoft.com:5000/api/unique', assets, {
+    return request.post('unique', assets, {
         headers: {
             'Content-Type': 'application/json'
         }

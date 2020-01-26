@@ -3,6 +3,7 @@ export const SET_RESULTS = 'SET_RESULTS'
 export const SET_CONFIDENCE = 'SET_CONFIDENCE'
 export const SET_AREA = 'SET_AREA'
 export const SET_COUNT = 'SET_COUNT'
+export const SET_COLOR = 'SET_COLOR'
 
 export const setMilePoint = (milepoint) => dispatch => {
     dispatch({
@@ -36,5 +37,12 @@ export const setArea = (area) => dispatch => {
     dispatch({
         type: SET_AREA,
         area
+    })
+}
+
+export const setColor = (color) => dispatch => {
+    dispatch({
+        type: SET_COLOR,
+        color
     })
 }
