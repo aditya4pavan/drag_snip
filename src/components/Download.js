@@ -7,6 +7,7 @@ import { GetDetection, GetUnique } from '../REST/road';
 import { round } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { setResults } from '../actions';
+import RangeSlider from './RangeSlider'
 
 export default function Download({ road = [] }) {
 
@@ -82,7 +83,8 @@ export default function Download({ road = [] }) {
         <div>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 Run Detections
-      </Button>
+            </Button>
+            {/* <RangeSlider label='Adjust Road Range' min={min} max={max} step={0.01} shareRange={getValue} /> */}
             <Dialog
                 open={open}
                 onClose={handleClose}
