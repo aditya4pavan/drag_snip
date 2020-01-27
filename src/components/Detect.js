@@ -51,7 +51,7 @@ export default function ({ match }) {
                 <div className='col-sm-7'>
                     <div className='row'>
                         <div className='col'>
-                            <DownloadView road={road} />
+                            <DownloadView road={road} end={Math.max.apply(null, road.map(e => parseFloat(e.milepoint)))} />
                         </div>
                         <div className='col'>
                             <Settings />

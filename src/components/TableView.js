@@ -73,7 +73,7 @@ export default function TableView() {
             while (min < max) {
                 min += 0.01
                 min = roundBy(min, 2)
-                console.log(min)
+              //  console.log(min)
                 notBlocked = notBlocked && miles.includes(min)
             }
             return !notBlocked
