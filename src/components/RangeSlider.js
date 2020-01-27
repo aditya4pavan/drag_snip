@@ -11,7 +11,7 @@ const useStyles = makeStyles({
 
 export default function RangeSlider(props) {
     const classes = useStyles();
-    const { label, range, step, min, max, shareRange } = props
+    const { label, range, step, min, max, shareRange, marks } = props
     const [value, setValue] = React.useState(range);
 
     const handleChange = (event, newValue) => {
@@ -38,6 +38,7 @@ export default function RangeSlider(props) {
                 aria-labelledby="range-slider"
                 min={min}
                 max={max}
+                marks={marks}
             />
         </div>
     );
