@@ -4,6 +4,22 @@ import Slider from './Image/slider';
 import { GetRoad } from '../REST/road';
 import ImageView from './Image';
 import TableView from './TableView';
+import RangeSlider from './RangeSlider'
+
+const marks = [
+    {
+        value: 0,
+        label: 'Selected',
+    },
+    {
+        value: -100,
+        label: 'Light',
+    },
+    {
+        value: 100,
+        label: 'Dark',
+    }
+];
 
 export default function ({ match }) {
 
@@ -16,6 +32,10 @@ export default function ({ match }) {
             setRoad(result.data.data)
         })
     }, [id])
+
+    const getValue=(sliderRange)=>{
+        
+    }
 
     return (
         <div className='container-fluid'>
@@ -35,6 +55,11 @@ export default function ({ match }) {
                         </div> */}
                     </div>
                     <TableView road={road} />
+                    <div className="row">
+                        <div className='col-12'>
+                            <RangeSlider label='Color Deviation' min={-100} max={100} step={1} marks={marks} shareRange={getValue}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

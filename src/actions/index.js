@@ -4,6 +4,7 @@ export const SET_CONFIDENCE = 'SET_CONFIDENCE'
 export const SET_AREA = 'SET_AREA'
 export const SET_COUNT = 'SET_COUNT'
 export const SET_COLOR = 'SET_COLOR'
+export const SET_RANGE = 'SET_RANGE'
 
 export const setMilePoint = (milepoint) => dispatch => {
     dispatch({
@@ -45,5 +46,13 @@ export const setColor = (color) => dispatch => {
     dispatch({
         type: SET_COLOR,
         color
+    })
+}
+
+export const setRange = (range) => dispatch => {
+    console.log(range)
+    dispatch({
+        type: SET_RANGE,
+        range
     })
 }

@@ -1,4 +1,4 @@
-import { SET_MILE, SET_RESULTS, SET_COUNT, SET_AREA, SET_CONFIDENCE, SET_COLOR } from "../actions";
+import { SET_MILE, SET_RESULTS, SET_COUNT, SET_AREA, SET_CONFIDENCE, SET_COLOR, SET_RANGE } from "../actions";
 
 
 const initialState = {
@@ -20,6 +20,8 @@ export default (state = initialState, action) => {
             return { ...state, area: action.area, detections: getDetections(state.results, state.confidence, action.area, state.count) }
         case SET_COLOR:
             return { ...state, color: action.color }
+        case SET_RANGE:
+            return { ...state, range: action.range }
         default: {
             return { ...state };
         }
