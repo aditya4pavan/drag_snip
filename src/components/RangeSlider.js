@@ -19,7 +19,12 @@ export default function RangeSlider(props) {
         shareRange && shareRange(newValue)
 
     };
-   
+
+    useEffect(() => {
+        setValue(null)
+    },[min,max])
+
+
     return (
         <div className={classes.root}>
             <Typography id="range-slider" gutterBottom>

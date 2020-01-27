@@ -18,16 +18,22 @@ export default function Download({ road = [], end }) {
     const [mile, setMile] = React.useState(0);
     const [current, setCurrent] = React.useState(-1);
     const [assets, setAssets] = React.useState([]);
-    let min = 0
-    let max = 0
-    if (road.length) {
-        min = road[0].milepoint
-        max = road[road.length - 1].milepoint
-    }
-
+    const [min, setMin] = useState(0)
+    const [max, setMax] = useState(0)
     const [range, setRange] = useState([0, 0])
-
     const [start, last] = range
+
+    useEffect(() => {
+        if (road.length) {
+            const min = road[0].milepoint
+            const max = road[road.length - 1].milepoint
+            setMin(min)
+            setMax(max)
+            setRange([min,max])
+        }
+
+    }, [road])
+    
 
     const handleClickOpen = () => {
         setOpen(true);
