@@ -31,9 +31,9 @@ export default function ({ match }) {
                         <div className='col'>
                             <DownloadView road={road} end={Math.max.apply(null, road.map(e => parseFloat(e.milepoint)))} />
                         </div>
-                        <div className='col'>
+                        {/* <div className='col'>
                             <Settings />
-                        </div>
+                        </div> */}
                     </div>
                     <TableView road={road} />
                 </div>
