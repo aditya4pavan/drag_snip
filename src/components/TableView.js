@@ -11,6 +11,7 @@ import ColorDiff from 'nearest-color';
 import roundBy from 'lodash/round';
 import sortBy from 'lodash/sortBy';
 import TinyColor from 'tinycolor2';
+import { colors } from '@material-ui/core';
 
 export default function TableView() {
     const [det, red] = useSelector(state => [state.detections, state.color]);
@@ -23,18 +24,6 @@ export default function TableView() {
     const columns = [
         'Sign Type', 'Mile Point', 'No. of Instances', 'Information', 'Possible Obstruction', '', ''
     ]
-
-    const output = det.map(d => {
-        const newDets = d.details.map(x => {
-            const newColors = sortBy(x.colors.filter(e => e.proportion >= 0.2).map(e => {
-                const color = '#' + fullColorHex(e.rgb)
-                const details = ColorDiff.from({ red })(color);
-                return { ...e, color, distance: roundBy(details.distance, 2), brightness: TinyColor(color).getBrightness(), original: TinyColor(red).getBrightness() }
-            }), 'distance')
-            return { ...x, colors: newColors }
-        })
-        return { ...d, details: newDets }
-    })
 
     const findBestColor = (assets) => {
         if (assets.length) {
@@ -62,6 +51,19 @@ export default function TableView() {
         }
     }
 
+    const output = det.map(d => {
+        const newDets = d.details.map(x => {
+            const newColors = sortBy(x.colors.filter(e => e.proportion >= 0.2).map(e => {
+                const color = '#' + fullColorHex(e.rgb)
+                const details = ColorDiff.from({ red })(color);
+                return { ...e, color, distance: roundBy(details.distance, 2), brightness: TinyColor(color).getBrightness(), original: TinyColor(red).getBrightness() }
+            }), 'distance')
+            return { ...x, colors: newColors }
+        })
+        const { color, percent } = findBestColor(newDets)
+        return { ...d, details: newDets, percent, best: color }
+    })
+
     const possibleBlockage = (assets) => {
         if (Array.isArray(assets)) {
             let miles = assets.map(x => parseFloat(x.mile))
@@ -80,8 +82,7 @@ export default function TableView() {
     }
 
     const data = output.map((e, i) => {
-        const { color, percent } = findBestColor(e.details)
-        return [e.label, e.mile, e.details.length, e.label === 'stop' ? <div><div style={{ width: 20, height: 20, background: color }}></div>{percent}%</div> : '', possibleBlockage(e.details) ? 'Yes' : 'No',
+        return [e.label, e.mile, e.details.length, e.label === 'stop' ? <div><div style={{ width: 20, height: 20, background: e.best }}></div>{e.percent}%</div> : '', possibleBlockage(e.details) ? 'Yes' : 'No',
         <Button onClick={() => dispatch(setMilePoint(parseFloat(e.mile)))}>View</Button>, <Button onClick={() => setAsset(i)}>Details</Button>]
     })
 
