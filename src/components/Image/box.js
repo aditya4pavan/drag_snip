@@ -101,7 +101,9 @@ export default function ImageBox({ link, data }) {
             base.height = 100
             base.width = 100
             base.onload = () => {
-                ctx.drawImage(base, overlayx + overlaywidth * 0.25, overlayy + overlayheight * 0.75, overlaywidth * 0.5, overlaywidth * 0.5)
+                let factor = naturalHeight * overlaywidth * 0.5 / naturalWidth
+                console.log(factor, overlaywidth, overlayheight, naturalWidth, naturalHeight)
+                ctx.drawImage(base, overlayx + overlaywidth * 0.25, overlayy + overlayheight * 0.75, overlaywidth * 0.5, overlayheight * 0.5)
             }
             ctx.fillStyle = 'rgba(148, 203, 200, 0.5)';
             ctx.fill();

@@ -110,6 +110,7 @@ export default function CustomizedSlider({ min, max }) {
 
     return (
         <div className={classes.root}>
+            <h6 className='text-center'>Mile Point: {milepoint}</h6>
             <PrettoSlider onChange={(evt, val) => handleChange(val)} step={0.01} valueLabelDisplay='auto' value={milepoint} min={min} max={max} />
             <div className={classes.controls}>
                 <IconButton disabled={milepoint <= 0} onClick={() => handleChange(round(milepoint - 0.1, 2))}>

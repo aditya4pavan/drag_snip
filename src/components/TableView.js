@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MUIDataTable from "mui-datatables";
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -36,31 +36,29 @@ export default function TableView() {
         return { ...d, details: newDets }
     })
 
-    console.log(output)
-
     const findBestColor = (assets) => {
         if (assets.length) {
             let colors = assets.flatMap(e => e.colors)
             colors = sortBy(colors, 'distance')
             console.log(colors)
-            return <div><div style={{ width: 20, height: 20, background: colors[0].color }}></div>{colorPercent(colors[0])}</div>
+            return { color: colors[0].color, percent: colorPercent(colors[0]) }
         }
-        return <div style={{ width: 20, height: 20, background: '#fff' }}></div>
+        return { color: '#fff', percent: 0 }
     }
 
     const colorPercent = (asset) => {
         try {
             const [c1, c2] = [asset.brightness, asset.original]
             if (c1 >= c2) {
-                return roundBy(((c1 - c2) / c2) * 100, 2) + '% Lighter'
+                return 100 - roundBy(((c1 - c2) / c2) * 100, 2)
             }
             else {
-                return roundBy(((c2 - c1) / c2) * 100, 2) + '% Darker'
+                return 100 + roundBy(((c2 - c1) / c2) * 100, 2)
             }
         }
         catch (ex) {
             console.log(ex);
-            return 'NA'
+            return 0
         }
     }
 
@@ -73,7 +71,7 @@ export default function TableView() {
             while (min < max) {
                 min += 0.01
                 min = roundBy(min, 2)
-              //  console.log(min)
+                //  console.log(min)
                 notBlocked = notBlocked && miles.includes(min)
             }
             return !notBlocked
@@ -82,7 +80,8 @@ export default function TableView() {
     }
 
     const data = output.map((e, i) => {
-        return [e.label, e.mile, e.details.length, e.label === 'stop' ? findBestColor(e.details) : '', possibleBlockage(e.details) ? 'Yes' : 'No',
+        const { color, percent } = findBestColor(e.details)
+        return [e.label, e.mile, e.details.length, e.label === 'stop' ? <div><div style={{ width: 20, height: 20, background: color }}></div>{percent}%</div> : '', possibleBlockage(e.details) ? 'Yes' : 'No',
         <Button onClick={() => dispatch(setMilePoint(parseFloat(e.mile)))}>View</Button>, <Button onClick={() => setAsset(i)}>Details</Button>]
     })
 

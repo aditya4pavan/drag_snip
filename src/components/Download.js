@@ -29,11 +29,11 @@ export default function Download({ road = [], end }) {
             const max = road[road.length - 1].milepoint
             setMin(min)
             setMax(max)
-            setRange([min,max])
+            setRange([min, max])
         }
 
     }, [road])
-    
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -121,8 +121,10 @@ export default function Download({ road = [], end }) {
                 <div className='col'>
                     <Settings />
                 </div>
+                <div className='col-12'>
+                    <RangeSlider label='Detection Range' min={min} max={max} step={0.01} shareRange={getValue} />
+                </div>
             </div>
-            <RangeSlider label='Adjust Road Range' min={min} max={max} step={0.01} shareRange={getValue} />
             <Dialog
                 open={open}
                 onClose={handleClose}

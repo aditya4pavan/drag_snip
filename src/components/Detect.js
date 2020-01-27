@@ -4,7 +4,6 @@ import Slider from './Image/slider';
 import { GetRoad } from '../REST/road';
 import ImageView from './Image';
 import TableView from './TableView';
-import Settings from './Settings';
 
 export default function ({ match }) {
 

@@ -5,7 +5,7 @@ import Slider from '@material-ui/core/Slider';
 
 const useStyles = makeStyles({
     root: {
-        width: 300,
+        textAlign: 'center'
     },
 });
 
@@ -22,12 +22,12 @@ export default function RangeSlider(props) {
 
     useEffect(() => {
         setValue(null)
-    },[min,max])
+    }, [min, max])
 
 
     return (
         <div className={classes.root}>
-            <Typography id="range-slider" gutterBottom>
+            <Typography variant='caption' gutterBottom>
                 {label}
             </Typography>
             <Slider
