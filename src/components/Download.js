@@ -18,9 +18,15 @@ export default function Download({ road = [], end }) {
 
     const handleClickOpen = () => {
         setOpen(true);
-        if (road.length > 0)
-            setCurrent(0)
+        if (road.length > 0) {
+            setCurrent(road[0].milepoint)
+        }
+        else setOpen(false)
     };
+
+    // const changeMilePt = (mile) => {
+    //     if (mile > start && mile < end) setCurrent(round(mile + 0.01, 2))
+    // }
 
     useEffect(() => {
         let sample = road.filter(e => e.milepoint === current);
@@ -40,7 +46,10 @@ export default function Download({ road = [], end }) {
                     }
                 }
                 catch (ex) { console.log(ex, result.data) }
-                setCurrent(getNextMile())
+                // changeMilePt(e.milepoint)
+                setCurrent(round(e.milepoint + 0.01, 2))
+
+                //setCurrent(getNextMile())
             })
         }
     }, [current, road])

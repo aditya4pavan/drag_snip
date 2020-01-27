@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import DetectView from './components/Detect';
 import RoadsList from './components/Roads'
+import HomeIcon from '@material-ui/icons/Home';
 
 const theme = createMuiTheme({
   palette: {
@@ -43,16 +44,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DenseAppBar() {
+export default function DenseAppBar(props) {
   const classes = useStyles();
+
+  const changeRoute = () => {
+    props.history.push('/')
+}
 
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <AppBar position="static" color='secondary'>
           <Toolbar className={classes.toolbar} variant='dense'>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={changeRoute}>
+              <HomeIcon />
             </IconButton>
             <Typography  className={classes.title} variant="h6" noWrap>
               Sign Detection
