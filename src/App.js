@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import DetectView from './components/Detect';
+import RoadsList from './components/Roads'
 
 const theme = createMuiTheme({
   palette: {
@@ -61,6 +62,7 @@ export default function DenseAppBar() {
         <Router>
           <Switch>
             <Route exact path='/:id' component={DetectView} />
+            <Route exact path='/' component={RoadsList} />
           </Switch>
         </Router>
       </div>
