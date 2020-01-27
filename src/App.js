@@ -47,16 +47,12 @@ const useStyles = makeStyles(theme => ({
 export default function DenseAppBar(props) {
   const classes = useStyles();
 
-  const changeRoute = () => {
-    props.history.push('/')
-}
-
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <AppBar position="static" color='secondary'>
           <Toolbar className={classes.toolbar} variant='dense'>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={changeRoute}>
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" href="/">
               <HomeIcon />
             </IconButton>
             <Typography  className={classes.title} variant="h6" noWrap>

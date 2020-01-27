@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,6 +7,9 @@ import { GetDetection, GetUnique } from '../REST/road';
 import { round } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { setResults } from '../actions';
+import RangeSlider from './RangeSlider'
+import Settings from './Settings';
+
 export default function Download({ road = [], end }) {
 
     const dispatch = useDispatch();
@@ -15,18 +18,36 @@ export default function Download({ road = [], end }) {
     const [mile, setMile] = React.useState(0);
     const [current, setCurrent] = React.useState(-1);
     const [assets, setAssets] = React.useState([]);
+    const [min, setMin] = useState(0)
+    const [max, setMax] = useState(0)
+    const [range, setRange] = useState([0, 0])
+    const [start, last] = range
+
+    useEffect(() => {
+        if (road.length) {
+            const min = road[0].milepoint
+            const max = road[road.length - 1].milepoint
+            setMin(min)
+            setMax(max)
+            setRange([min,max])
+        }
+
+    }, [road])
+    
 
     const handleClickOpen = () => {
         setOpen(true);
         if (road.length > 0) {
-            setCurrent(road[0].milepoint)
+            setCurrent(start)
         }
         else setOpen(false)
     };
 
-    // const changeMilePt = (mile) => {
-    //     if (mile > start && mile < end) setCurrent(round(mile + 0.01, 2))
-    // }
+    const changeMilePt = () => {
+        const next = getNextMile()
+        if (next > start && next < last) setCurrent(next)
+        else setCurrent(max)
+    }
 
     useEffect(() => {
         let sample = road.filter(e => e.milepoint === current);
@@ -46,17 +67,15 @@ export default function Download({ road = [], end }) {
                     }
                 }
                 catch (ex) { console.log(ex, result.data) }
-                // changeMilePt(e.milepoint)
-                setCurrent(round(e.milepoint + 0.01, 2))
-
-                //setCurrent(getNextMile())
+                changeMilePt()
+                //setCurrent(round(e.milepoint + 0.01, 2))
             })
         }
     }, [current, road])
 
     const getNextMile = () => {
         let next = round(current + 0.01, 2);
-        while ((road.findIndex(e => e.milepoint === next) === -1) && next < end) {
+        while ((road.findIndex(e => e.milepoint === next) === -1) && next < last) {
             console.log(next)
             next = round(next + 0.01, 2)
         }
@@ -87,11 +106,23 @@ export default function Download({ road = [], end }) {
         setOpen(false);
     };
 
+    const getValue = (sliderValue) => {
+        setRange(sliderValue)
+    }
+
     return (
         <div>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Run Detections
-      </Button>
+            <div className='row'>
+                <div className='col-sm-7'>
+                    <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                        Run Detections
+                    </Button>
+                </div>
+                <div className='col'>
+                    <Settings />
+                </div>
+            </div>
+            <RangeSlider label='Adjust Road Range' min={min} max={max} step={0.01} shareRange={getValue} />
             <Dialog
                 open={open}
                 onClose={handleClose}
