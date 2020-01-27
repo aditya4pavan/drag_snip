@@ -7,6 +7,7 @@ import { GetDetection, GetUnique } from '../REST/road';
 import { round } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { setResults } from '../actions';
+
 export default function Download({ road = [] }) {
 
     const dispatch = useDispatch();
@@ -18,9 +19,15 @@ export default function Download({ road = [] }) {
 
     const handleClickOpen = () => {
         setOpen(true);
-        if (road.length > 0)
-            setCurrent(0)
+        if (road.length > 0) {
+            setCurrent(road[0].milepoint)
+        }
+        else setOpen(false)
     };
+
+    // const changeMilePt = (mile) => {
+    //     if (mile > start && mile < end) setCurrent(round(mile + 0.01, 2))
+    // }
 
     useEffect(() => {
         let sample = road.filter(e => e.milepoint === current);
@@ -40,6 +47,7 @@ export default function Download({ road = [] }) {
                     }
                 }
                 catch (ex) { console.log(ex, result.data) }
+                // changeMilePt(e.milepoint)
                 setCurrent(round(e.milepoint + 0.01, 2))
 
             })
