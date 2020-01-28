@@ -5,6 +5,8 @@ import { GetRoad } from '../REST/road';
 import ImageView from './Image';
 import TableView from './TableView';
 import RangeSlider from './RangeSlider'
+import { useDispatch } from 'react-redux';
+import { setRange } from '../actions';
 
 const marks = [
     {
@@ -27,14 +29,16 @@ export default function ({ match }) {
 
     const [road, setRoad] = useState([])
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
         GetRoad(id).then(result => {
             setRoad(result.data.data)
         })
     }, [id])
 
-    const getValue=(sliderRange)=>{
-        
+    const getValue = (sliderRange) => {
+        dispatch(setRange(sliderRange))
     }
 
     return (
@@ -57,7 +61,7 @@ export default function ({ match }) {
                     <TableView road={road} />
                     <div className="row">
                         <div className='col-12'>
-                            <RangeSlider label='Color Deviation' min={-100} max={100} step={1} marks={marks} shareRange={getValue}/>
+                            <RangeSlider label='Color Deviation' min={-100} max={100} step={1} marks={marks} shareRange={getValue} />
                         </div>
                     </div>
                 </div>

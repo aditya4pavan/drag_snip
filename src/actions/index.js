@@ -50,7 +50,7 @@ export const setColor = (color) => dispatch => {
 }
 
 export const setRange = (range) => dispatch => {
-    console.log(range)
+   // console.log(range)
     dispatch({
         type: SET_RANGE,
         range
